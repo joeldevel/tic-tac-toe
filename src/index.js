@@ -2,8 +2,16 @@ window.addEventListener('click', handleClick);
 
 function handleClick(event) {
   gameboard.updateGameboard(board,event.target.id);
+  checkWinner('X');
 }
-
+function checkWinner(mark) {
+  // console.log(gameboard.getSquare(0));
+  if(gameboard.getSquare(0).getMark() === mark &&
+    gameboard.getSquare(1).getMark() === mark &&
+    gameboard.getSquare(2).getMark() === mark) {
+      console.log(mark, " wins");
+    }
+}
 // create one single square
 function square(id) {
   let _id = id;
@@ -27,6 +35,7 @@ function player(mark) {
 }
 
 const gameboard = (function(){
+    let counter = 0;
     squares = [
       square(1),square(2),square(3),
       square(4),square(5),square(6),
@@ -52,18 +61,19 @@ const gameboard = (function(){
 
     function updateGameboard(where, index) {
       let mark = '';
-      if(index%2==0) {
+      console.log('INDEX',index);
+      if(counter %2 === 0) {
           mark = 'X';
       }
       else {
           mark = 'O';
       }
       squares[parseInt(index)-1].setMark(mark);
-      console.log(where);
+      // console.log(where);
       const btn = where.querySelector(`[id='${index}']`);
       btn.textContent = mark;
       btn.disabled = true;
-
+      counter++;
     }
     return {getSquare, displayGameboard, updateGameboard};
 
