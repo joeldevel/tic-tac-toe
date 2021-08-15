@@ -1,4 +1,10 @@
-console.log('works!');
+window.addEventListener('click', handleClick);
+
+function handleClick(event) {
+  gameboard.updateGameboard(board,event.target.id);
+}
+
+// create one single square
 function square(id) {
   let _id = id;
   function setMark(mark) {
@@ -35,7 +41,6 @@ const gameboard = (function(){
       btn.classList.add('gameboard-btn');
       btn.setAttribute('id', square.getId());
       btn.textContent =" ";
-      // console.log(square.getId());
       where.appendChild(btn);
     }
 
@@ -44,10 +49,26 @@ const gameboard = (function(){
         addSquare(where, square);
       });
     }
-    return {getSquare, displayGameboard};
+
+    function updateGameboard(where, index) {
+      let mark = '';
+      if(index%2==0) {
+          mark = 'X';
+      }
+      else {
+          mark = 'O';
+      }
+      squares[parseInt(index)-1].setMark(mark);
+      console.log(where);
+      const btn = where.querySelector(`[id='${index}']`);
+      btn.textContent = mark;
+      btn.disabled = true;
+
+    }
+    return {getSquare, displayGameboard, updateGameboard};
 
 })();
 
-const displayGameboard = document.querySelector('.gameboard');
+const board = document.querySelector('.gameboard');
 
-gameboard.displayGameboard(displayGameboard);
+gameboard.displayGameboard(board);
