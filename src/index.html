@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <title>Tic Tac Toe</title>
     <style media="screen">
+      body {
+        position: relative;
+        display: grid;
+        grid-template-rows: 10vh auto;
+        height: 100vh;
+        background: plum;
+        justify-content: center;
+      }
       .gameboard {
         display: grid;
         grid-template-columns: auto auto auto;
@@ -12,19 +20,45 @@
       }
       .gameboard-btn {
         height: 100px;
+        width: 100px;
+      }
+
+      .modal-win {
+          width: 400px;
+          height: 200px;
+          background: #FFF;
+          border: 10px solid #000;
+          z-index: 100;
+          position: absolute;
+          top: -100%;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: all 0.2s ease-in;
+      }
+
+      .modal-win-show {
+          top: 100px !important;
+      }
+
+      .modal-title {
+        text-align: center;
+        padding: 20px;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>Playing Tic Tac Toe</h1>
+      <h1>Tic Tac Toe</h1>
     </header>
     <main>
       <div class="gameboard-container">
         <div class="gameboard"></div>
       </div>
     </main>
-
+    <div class="modal-win" id="modal-win">
+      <h2 class="modal-title" id="winner-mark"></h2>
+      <button>Play again</button>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
